@@ -33,7 +33,7 @@ function bits2buf (bits) {
  */
 function buf2bits (buf) {
   var index = 0
-  for (; buf[index] === 0; ++index);
+  for (var max = buf.length - 3; buf[index] === 0 && index < max; ++index);
   if (buf[index] > 0x7f) {
     index -= 1
   }

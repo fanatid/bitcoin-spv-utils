@@ -29,9 +29,9 @@
     "hex": "0000010000000000000000000000000000000000000000000000000000000000",
     "error": "First part"
   }, {
-    "description": "first part of bits is wrong (less)",
+    "description": "second part of bits is wrong (less)",
     "hex": "0000000000000000000000000000000000000000000000000000000000007fff",
-    "error": "First part"
+    "error": "Second part"
   }, {
     "description": "max target",
     "hex": "0000007fffff0000000000000000000000000000000000000000000000000000",
