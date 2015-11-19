@@ -41,7 +41,7 @@ function buf2bits (buf) {
   var bitsN = 32 - index
   assert(bitsN >= 0x03 && bitsN <= 0x1d, 'First part of bits should be in [0x03, 0x1d]')
 
-  var bitsBase = (buf[index] << 16) + (buf[index + 1] << 8) + buf[index + 2]
+  var bitsBase = buf[index] << 16 | buf[index + 1] << 8 | buf[index + 2]
   assert(bitsBase >= 0x8000 && bitsBase <= 0x7fffff, 'Second part of bits should be in [0x8000, 0x7fffff]')
 
   return (bitsN << 24) + bitsBase
