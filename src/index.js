@@ -2,6 +2,8 @@ var assert = require('assert')
 var createHash = require('crypto').createHash
 var BN = require('bn.js')
 
+var ZERO_HASH = '0000000000000000000000000000000000000000000000000000000000000000'
+
 var MAX_TARGET_BITS = 0x1d00ffff
 var MAX_TARGET_HEX = '00000000ffff0000000000000000000000000000000000000000000000000000'
 var MAX_TARGET_BUFFER = new Buffer(MAX_TARGET_HEX, 'hex')
@@ -111,14 +113,17 @@ function _verifyHeaderTarget (bits, hash, target) {
  *    to its previous value.
  *
  * @param {Buffer} header
- * @param {Buffer} previous
+ * @param {?Buffer} previous
  * @param {TargetObject} target
  * @param {boolean} [isTestnet=false]
  * @return {boolean}
  */
 function verifyHeader (header, previous, target, isTestnet) {
   // Use Buffer.compare when 0.10 will be drop (~ april 2016)
-  if (header.slice(4, 36).toString('hex') !== _sha256x2(previous).toString('hex')) {
+  var previousHash = previous === null
+                       ? ZERO_HASH
+                       : _sha256x2(previous).toString('hex')
+  if (header.slice(4, 36).toString('hex') !== previousHash) {
     return false
   }
 
@@ -134,7 +139,7 @@ function verifyHeader (header, previous, target, isTestnet) {
 
 /**
  * @param {Buffer[]} headers
- * @param {Buffer} previous
+ * @param {?Buffer} previous
  * @param {TargetObject} target
  * @param {boolean} isTestnet
  * @return {boolean}

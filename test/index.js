@@ -10,6 +10,7 @@ var MAX_TARGET_BITS = 0x1d00ffff
 
 fixtures.withReset.headers = fixtures.withReset.headers.map(function (h) { return new Buffer(h, 'hex') })
 fixtures.withoutReset.headers = fixtures.withoutReset.headers.map(function (h) { return new Buffer(h, 'hex') })
+fixtures.previousNull.headers = fixtures.previousNull.headers.map(function (h) { return new Buffer(h, 'hex') })
 
 /**
  * @param {Buffer} buffer
@@ -133,10 +134,17 @@ describe('bitcoin-spv-utils', function () {
       var result = spvUtils.verifyHeader(current, previous, target, true)
       expect(result).to.be.false
     })
+
+    it('previous is null', function () {
+      var current = fixtures.previousNull.headers[0]
+      var target = bits2targetObj(fixtures.previousNull.bits)
+      var result = spvUtils.verifyHeader(current, null, target, true)
+      expect(result).to.be.true
+    })
   })
 
   describe('verifyHeaders', function () {
-    it('return true', function () {
+    it('with difficulty reset and testnet is true', function () {
       var headers = fixtures.withReset.headers.slice(1)
       var previous = fixtures.withReset.headers[0]
       var target = bits2targetObj(fixtures.withReset.bits)
@@ -144,12 +152,19 @@ describe('bitcoin-spv-utils', function () {
       expect(result).to.be.true
     })
 
-    it('return false', function () {
+    it('with difficulty reset and testnet is false', function () {
       var headers = fixtures.withReset.headers.slice(1)
       var previous = fixtures.withReset.headers[0]
       var target = bits2targetObj(fixtures.withReset.bits)
       var result = spvUtils.verifyHeaders(headers, previous, target, false)
       expect(result).to.be.false
+    })
+
+    it('previous is null', function () {
+      var headers = fixtures.previousNull.headers
+      var target = bits2targetObj(fixtures.previousNull.bits)
+      var result = spvUtils.verifyHeaders(headers, null, target, true)
+      expect(result).to.be.true
     })
   })
 })
