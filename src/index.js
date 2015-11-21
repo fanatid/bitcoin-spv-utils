@@ -129,12 +129,10 @@ function verifyHeader (header, previous, target, isTestnet) {
 
   var hash = Array.prototype.reverse.call(_sha256x2(header))
   var bits = header.readUInt32LE(72)
-  if (!_verifyHeaderTarget(bits, hash, target) &&
-      !(!!isTestnet && header.readUInt32LE(68) - previous.readUInt32LE(68) > 20 * 60)) {
-    return false
-  }
 
-  return _verifyHeaderTarget(bits, hash, getMaxTarget())
+  return _verifyHeaderTarget(bits, hash, target) ||
+         (!!isTestnet && header.readUInt32LE(68) - previous.readUInt32LE(68) > 20 * 60 &&
+           _verifyHeaderTarget(bits, hash, getMaxTarget()))
 }
 
 /**

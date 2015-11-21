@@ -119,9 +119,8 @@ describe('bitcoin-spv-utils', function () {
       var current = new Buffer(fixtures.withoutReset.headers[1])
       var previous = fixtures.withoutReset.headers[0]
       var target = bits2targetObj(fixtures.withoutReset.bits)
-      // use target.buf = new Buffer(new Array(32).fill(0)) when 0.12 will drop
-      target.buf = new Buffer(32)
-      target.buf.fill(0)
+      var newTargetBuf = Array.prototype.reverse.call(sha256x2(current))
+      target.buf = new Buffer(new BN(newTargetBuf).isubn(1).toArray(null, 32))
       var result = spvUtils.verifyHeader(current, previous, target, true)
       expect(result).to.be.false
     })
@@ -132,7 +131,7 @@ describe('bitcoin-spv-utils', function () {
       var target = bits2targetObj(fixtures.withoutReset.bits)
       target.buf = Array.prototype.reverse.call(sha256x2(current))
       var result = spvUtils.verifyHeader(current, previous, target, true)
-      expect(result).to.be.false
+      expect(result).to.be.true
     })
 
     it('previous is null', function () {
