@@ -8,12 +8,12 @@
 
 ## API
 
-  - [`bits2buf(Number bits)`](#)
-  - [`buf2bits(Buffer buf)`](#)
-  - [`getMaxTarget()`](#)
-  - [`getTarget(Buffer first, Buffer last)`](#)
-  - [`verifyHeader(Buffer header, Buffer previous, Object target [, Boolean isTestnet = false])`](#)
-  - [`verifyHeaders(Buffer[] headers, Buffer previous, Object target [, Boolean isTestnet = false]`](#)
+  - [`bits2buf(Number bits)`](#bits2bufnumber-bits---buffer)
+  - [`buf2bits(Buffer buf)`](#buf2bitsbuffer-buf---number)
+  - [`getMaxTarget()`](#getmaxtarget---bits-number-buf-buffer)
+  - [`getTarget(Buffer first, Buffer last)`](#gettargetbuffer-first-buffer-last---bits-number-buf-buffer)
+  - [`verifyHeader(Buffer header, Buffer previous, Object target [, Boolean isTestnet = false])`](#verifyheaderbuffer-header-buffer-previous-object-target--boolean-istestnet--false---boolean)
+  - [`verifyHeaders(Buffer[] headers, Buffer previous, Object target [, Boolean isTestnet = false]`](#verifyheadersbuffer-headers-buffer-previous-object-target--boolean-istestnet--false---boolean)
 
 #####`bits2buf(Number bits)` -> `Buffer`
 
