@@ -11,9 +11,10 @@
     "url": "https://github.com/fanatid/bitcoin-spv-utils/issues"
   },
   "license": "MIT",
-  "author": "Kirill Fomichev fanatid@ya.ru",
+  "author": "Kirill Fomichev <fanatid@ya.ru>",
   "files": [
     "src",
+    "LICENSE",
     "README.md"
   ],
   "main": "./src/index.js",
